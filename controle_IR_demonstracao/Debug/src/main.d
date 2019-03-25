@@ -13,7 +13,7 @@ src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_t
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_types.h
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_stdint.h
 src/main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_stdint.h
-src/main.obj: C:/Users/lucas/workspace_v8/controle_IR_demonstracao/inc/IR_NEC.h
+src/main.obj: D:/OneDrive/Git\ Repositories/transmissor_IR/controle_IR_demonstracao/inc/IR_NEC.h
 
 ../src/main.c: 
 C:/ti/ccsv8/ccs_base/msp430/include/msp430.h: 
@@ -28,4 +28,4 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_types.h:
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_types.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/machine/_stdint.h: 
 C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.4.LTS/include/sys/_stdint.h: 
-C:/Users/lucas/workspace_v8/controle_IR_demonstracao/inc/IR_NEC.h: 
+D:/OneDrive/Git\ Repositories/transmissor_IR/controle_IR_demonstracao/inc/IR_NEC.h: 
