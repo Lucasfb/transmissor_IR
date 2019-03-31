@@ -27,7 +27,7 @@ int main(void)
       // Loop infinito
       while(1){
           IR_send_NEC(NEC_PWR_ADD, NEC_PWR_MSG);
-          _delay_cycles(10000);
+          _delay_cycles(30000);
       };
 
     return 0;
