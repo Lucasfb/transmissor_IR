@@ -15,7 +15,7 @@ uint32_t button_flag = 0;   // 0 - Botão nao foi apertado // 1- Botao foi aperta
 // Auxiliar para debouce
 #define CCR2_PERIOD CCR0_PERIOD // CCR2 possui o mesmo period de CCR1
 volatile uint16_t debouncer_countdown;
-volatile uint16_t debounce_end;
+volatile uint16_t debounce_end = 0;
 
 /**
  * main.c
@@ -57,9 +57,13 @@ int main(void)
       while(1){
           if (button_flag){
               IR_send_NEC(NEC_PWR_ADD, NEC_PWR_MSG);
+              //_delay_cycles(2000);
               button_flag = 0;
+              TA0CCTL2 |= CCIE; // Habilita interrupcoes do debouncer
           }
           if(debounce_end){
+              TA0CCTL2 &= ~CCIE; // Desabilita interrupcoes do debouncer
+              debounce_end = 0;
               debouncer_countdown = DEBOUNCE_REPETITIONS;
               P2IFG &= ~BIT1; // Limpa flag de interrupcao para P2.1
               P2IE |= BIT1; // Ativa novamente interrupcoes no pino 2.1
@@ -76,10 +80,9 @@ int main(void)
 __interrupt void Port_2(void)
 {
     if(BIT1 & P2IFG) { // Verifica se a interrupcao e referent ao pino 2.1
-        P2IFG &= ~BIT1; // Limpaa flag de interrupcao para P2.1
+        P2IFG &= ~BIT1; // Limpa flag de interrupcao para P2.1
         button_flag = 1;
-        TA0CCTL2 |= CCIE; // Habilita interrupcoes do debouncer
-        P2IE = 0; // Desativa interrupcoes no pino 2.1
+        P2IE &= ~BIT1; // Desativa interrupcoes no pino 2.1
     }
 }
 
@@ -91,7 +94,6 @@ __interrupt void Timer_A3(void)
     if (!debouncer_countdown){
         debounce_end = 1;  // Flag
         TACCTL2 &= ~CCIFG; // Limpa flag de interrupcao do timer
-        TA0CCTL2 &= ~CCIE; // Desabilita interrupcoes do debouncer
         }
 }
 

@@ -15,7 +15,7 @@
 #define CCR1_DUTY_CYLE 9U
 
 // Microssegundos de duracao para cada parte do sinal
-#define NEC_DELAY_CORRECTION 30U
+#define NEC_DELAY_CORRECTION 20U
 
 #define NEC_HEADER_MARK  9000U-NEC_DELAY_CORRECTION
 #define NEC_HEADER_SPACE 4500U-NEC_DELAY_CORRECTION
