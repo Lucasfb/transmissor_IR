@@ -2,15 +2,13 @@
 #include "stdint.h"
 #include <inc/IR_NEC.h>
 
-#define DEBOUNCE_TIME 200000UL // Microssegundos. Valor maximo de 65000 antes de overflow
+#define DEBOUNCE_TIME 1000U // Microssegundos.
 #define DEBOUNCE_REPETITIONS (DEBOUNCE_TIME/CCR0_PERIOD)
+#define BUTTON_PRESS_ACTIVE 0 // Botao ativo em nivel logico baixo
 
 // Mensagem a ser enviada
 const uint8_t NEC_PWR_ADD = 0x04;
 const uint8_t NEC_PWR_MSG = 0x08;
-
-// Indicador do botão
-uint32_t button_flag = 0;   // 0 - Botão nao foi apertado // 1- Botao foi apertado
 
 // Auxiliar para debouce
 #define CCR2_PERIOD CCR0_PERIOD // CCR2 possui o mesmo period de CCR1
@@ -55,14 +53,12 @@ int main(void)
 
       // Loop infinito
       while(1){
-          if (button_flag){
-              IR_send_NEC(NEC_PWR_ADD, NEC_PWR_MSG);
-              //_delay_cycles(2000);
-              button_flag = 0;
-              TA0CCTL2 |= CCIE; // Habilita interrupcoes do debouncer
-          }
           if(debounce_end){
-              TA0CCTL2 &= ~CCIE; // Desabilita interrupcoes do debouncer
+              // Caso apos o debounce o pin esta em nivel baixo, a funcao do botao e executada
+              if ((~P2IN & BIT1)){
+                  IR_send_NEC(NEC_PWR_ADD, NEC_PWR_MSG);
+              }
+              // Reseta o debounce
               debounce_end = 0;
               debouncer_countdown = DEBOUNCE_REPETITIONS;
               P2IFG &= ~BIT1; // Limpa flag de interrupcao para P2.1
@@ -81,8 +77,8 @@ __interrupt void Port_2(void)
 {
     if(BIT1 & P2IFG) { // Verifica se a interrupcao e referent ao pino 2.1
         P2IFG &= ~BIT1; // Limpa flag de interrupcao para P2.1
-        button_flag = 1;
         P2IE &= ~BIT1; // Desativa interrupcoes no pino 2.1
+        TA0CCTL2 |= CCIE; // Habilita interrupcoes do timer para debouncer
     }
 }
 
@@ -93,6 +89,7 @@ __interrupt void Timer_A3(void)
     debouncer_countdown--;
     if (!debouncer_countdown){
         debounce_end = 1;  // Flag
+        TA0CCTL2 &= ~CCIE; // Desabilita interrupcoes do debouncer
         TACCTL2 &= ~CCIFG; // Limpa flag de interrupcao do timer
         }
 }
