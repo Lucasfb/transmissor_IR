@@ -9,6 +9,9 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:controle_IR_aplicacao}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.C:\Users\lucas\workspace_v8\controle_IR_aplicacao\targetConfigs\MSP430G2452.ccxml.TI MSP430 USB1/MSP430" value="C:/Users\lucas\workspace_v8\controle_IR_aplicacao\Debug\controle_IR_aplicacao.out"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.D:\OneDrive\Git Repositories\transmissor_IR\controle_IR_aplicacao\targetConfigs\MSP430G2452.ccxml.TI MSP430 USB1/MSP430" value="D:/OneDrive\Git Repositories\transmissor_IR\controle_IR_aplicacao\Debug\controle_IR_aplicacao.out"/>
+<mapAttribute key="com.ti.ccstudio.debug.ui.displayFormats">
+<mapEntry key="TI MSP430 USB1/MSP430@##separator##@0" value="16-Bit Hex - TI Style"/>
+</mapAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/controle_IR_aplicacao"/>
 </listAttribute>
