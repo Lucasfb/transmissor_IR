@@ -2,7 +2,7 @@
 #include "stdint.h"
 #include <inc/IR_NEC.h>
 
-#define DEBOUNCE_TIME 1000U // Microssegundos.
+#define DEBOUNCE_TIME 7000U // Microssegundos.
 #define DEBOUNCE_REPETITIONS (DEBOUNCE_TIME/CCR0_PERIOD)
 #define BUTTON_PRESS_ACTIVE 0 // Botao ativo em nivel logico baixo
 
